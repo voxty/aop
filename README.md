@@ -20,4 +20,4 @@ This is my offical AOP to TeamSpeak3 resource. This resource takes the current a
 ### Credits:
 
 - Programming: Astra#2100
-- Insipration: WorldwideRP(https://wwrp.io)
+- Insipration: [WorldwideRP](https://wwrp.io)
