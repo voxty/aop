@@ -4,6 +4,12 @@ const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
 let aop = "None Set"
 let Wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
+const config = {
+    "teamspeak_ip": "localhost",
+    "teamspeak_password": "BfZzeicK",
+    "teamspeak_bot_username": "AstraWrld"
+}
+
 RegisterCommand("aop", async (source, args) => {
     let newaop = args.join(" ");
     let commandrunner = GetPlayerName(source);
@@ -22,15 +28,22 @@ RegisterCommand("aop", async (source, args) => {
 
 on("astra:ts", (player) => {    
     TeamSpeak.connect({
-        host: "localhost", // teamspeak ip
+        host: config.teamspeak_ip, // teamspeak ip
         protocol: QueryProtocol.RAW,
         queryport: 10011, //optional
         serverport: 9987,
         username: "serveradmin", // Query Username .. "Usally serveradmin"
-        password: "QUERY_PASSWORD", // Query Password .. "Shows it when you create the teamspeak"
-        nickname: "Asta Development" // Bot username
+        password: config.teamspeak_password, // Query Password .. "Shows it when you create the teamspeak"
+        nickname: config.teamspeak_bot_username // Bot username
     }).then(async teamspeak => {
-        const channel = await teamspeak.getChannelById("CHANNEL_ID"); // Set channel id here
+        const channel = await teamspeak.getChannelById("2"); // Set channel id here
+        if (!channel) {
+            console.log("That channel id is invalid, please makesure you are using the correct id");
+        }
+
+        // EDIT ALL CHANNEL INFORMATION HERE
+        // ${aop} will display the aop
+        // ${player} will display the player who set the AOP
         channel.edit({
             channelDescription: `[center][size=15]AOP: ${aop}[/size][/center]\n[center][size=15]Set By: ${player}[/size][/center]`, // This will change the description
             channelName: `[cspacer]AOP: ${aop}` // This will change the space title
