@@ -28,15 +28,15 @@ RegisterCommand("aop", async (source, args) => {
 
 on("astra:ts", (player) => {    
     TeamSpeak.connect({
-        host: config.teamspeak_ip, // teamspeak ip
+        host: config.teamspeak_ip,
         protocol: QueryProtocol.RAW,
         queryport: 10011, //optional
         serverport: 9987,
         username: "serveradmin", // Query Username .. "Usally serveradmin"
-        password: config.teamspeak_password, // Query Password .. "Shows it when you create the teamspeak"
-        nickname: config.teamspeak_bot_username // Bot username
+        password: config.teamspeak_password, 
+        nickname: config.teamspeak_bot_username 
     }).then(async teamspeak => {
-        const channel = await teamspeak.getChannelById("2"); // Set channel id here
+        const channel = await teamspeak.getChannelById("2");
         if (!channel) {
             console.log("That channel id is invalid, please makesure you are using the correct id");
         }
