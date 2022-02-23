@@ -7,7 +7,7 @@ This is my offical AOP to TeamSpeak3 resource. This resource takes the current a
 
 - Drag `aop-ts3` into your resource folder
 - Open command promt and install the node modules using `npm i`
-- Edit the `client.js` file to put your ts3 information
+- Edit the `server.js` file to put your ts3 information
 - start `aop-ts3`
 
 ---
