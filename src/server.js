@@ -1,5 +1,5 @@
 // Script By Astra#2100
-
+let tsClient;
 
 const config = {
     "teamspeak_ip": "localhost",
@@ -8,9 +8,6 @@ const config = {
 
     "channel_id": "2"
 }
-
-
-
 
 
 // DONNT EDIT UNLESS YOU KNOW WHAT YOUR DOING
@@ -35,8 +32,22 @@ RegisterCommand("aop", async (source, args) => {
 });
 
 
-on("astra:ts", (player) => {    
-    TeamSpeak.connect({
+on("astra:ts", async (player) => {    
+    const channel = await tsClient.getChannelById(config.channel_id);
+    if(!channel) {
+        console.log("That channel id is invalid, please make sure you are using the correct id")
+    }
+    await channel.edit({
+        channelDescription: `[center][size=15]AOP: ${aop}[/size][/center]\n[center][size=15]Set By: ${player}[/size][/center]`, // This will change the description
+        channelName: `[cspacer]AOP: ${aop}` // This will change the space title
+    }).catch((e) => {
+        console.log(e)
+    })
+});
+
+on("onResourceStart", async (resourceName) => {
+    if(resourceName === GetCurrentResourceName()) {
+      tsClient = await     TeamSpeak.connect({
         host: config.teamspeak_ip,
         protocol: QueryProtocol.RAW,
         queryport: 10011, //optional
@@ -44,27 +55,10 @@ on("astra:ts", (player) => {
         username: "serveradmin", // Query Username .. "Usally serveradmin"
         password: config.teamspeak_password, 
         nickname: config.teamspeak_bot_username 
-    }).then(async teamspeak => {
-        const channel = await teamspeak.getChannelById(config.channel_id);
-        if (!channel) {
-            console.log("That channel id is invalid, please makesure you are using the correct id");
-        }
-// DONNT EDIT UNLESS YOU KNOW WHAT YOUR DOING
-
-
-        // EDIT ALL CHANNEL INFORMATION HERE
-        // ${aop} will display the aop
-        // ${player} will display the player who set the AOP
-        channel.edit({
-            channelDescription: `[center][size=15]AOP: ${aop}[/size][/center]\n[center][size=15]Set By: ${player}[/size][/center]`, // This will change the description
-            channelName: `[cspacer]AOP: ${aop}` // This will change the space title
-        });
-        await Wait(1000)
-        teamspeak.forceQuit()
-    }).catch(e => {
-        console.log(e);
     })
-});
+    }
+  });
 
 // Script By Astra#2100
 console.log("Script By: Astra#2100")
+
