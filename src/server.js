@@ -1,14 +1,23 @@
 // Script By Astra#2100
 
-const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
-let aop = "None Set"
-let Wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 const config = {
     "teamspeak_ip": "localhost",
     "teamspeak_password": "BfZzeicK",
-    "teamspeak_bot_username": "AstraWrld"
+    "teamspeak_bot_username": "AstraWrld",
+
+    "channel_id": "2"
 }
+
+
+
+
+
+// DONNT EDIT UNLESS YOU KNOW WHAT YOUR DOING
+
+const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
+let aop = "None Set"
+let Wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 RegisterCommand("aop", async (source, args) => {
     let newaop = args.join(" ");
@@ -21,7 +30,7 @@ RegisterCommand("aop", async (source, args) => {
         emit("astra:ts", commandrunner);
 
     } else if (!newaop) {
-        emitNet("chat:addMessage", source, `^3[AOP] ^7The current area of patrol is ^1${aop}`)
+        emitNet("chatMessage", source, `^3[AOP] ^7The current area of patrol is ^1${aop}`)
     };
 });
 
@@ -36,10 +45,12 @@ on("astra:ts", (player) => {
         password: config.teamspeak_password, 
         nickname: config.teamspeak_bot_username 
     }).then(async teamspeak => {
-        const channel = await teamspeak.getChannelById("2");
+        const channel = await teamspeak.getChannelById(config.channel_id);
         if (!channel) {
             console.log("That channel id is invalid, please makesure you are using the correct id");
         }
+// DONNT EDIT UNLESS YOU KNOW WHAT YOUR DOING
+
 
         // EDIT ALL CHANNEL INFORMATION HERE
         // ${aop} will display the aop
@@ -50,6 +61,8 @@ on("astra:ts", (player) => {
         });
         await Wait(1000)
         teamspeak.forceQuit()
+    }).catch(e => {
+        console.log(e);
     })
 });
 
