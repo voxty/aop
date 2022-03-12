@@ -3,7 +3,7 @@ let tsClient;
 
 const config = {
     "teamspeak_ip": "localhost",
-    "teamspeak_password": "BfZzeicK",
+    "query_password": "BfZzeicK",
     "teamspeak_bot_username": "AstraWrld",
 
     "channel_id": "2"
@@ -53,7 +53,7 @@ on("onResourceStart", async (resourceName) => {
         queryport: 10011, //optional
         serverport: 9987,
         username: "serveradmin", // Query Username .. "Usally serveradmin"
-        password: config.teamspeak_password, 
+        password: config.query_password, 
         nickname: config.teamspeak_bot_username 
     })
     }
