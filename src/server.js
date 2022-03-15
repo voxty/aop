@@ -55,14 +55,8 @@ on("onResourceStart", async (resourceName) => {
         username: "serveradmin", // Query Username .. "Usally serveradmin"
         password: config.query_password, 
         nickname: config.teamspeak_bot_username 
-    }).then(async teamspeak => {
-        const channel = await teamspeak.getChannelById(config.channel_id);
-        channel.edit({
-            channelDescription: `[center][size=15]AOP: None Set[/size][/center]\n[center][size=15]Set By: Server[/size][/center]`, // This will change the description
-            channelName: `[cspacer]AOP: None Set` // This will change the space title
-        })
-    })
-    }
+      })
+     }
   });
 
 // Script By Astra#2100
