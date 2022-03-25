@@ -3,7 +3,7 @@ let tsClient;
 
 const config = {
     "teamspeak_ip": "localhost",
-    "query_password": "BfZzeicK",
+    "query_password": "QUERY_PASSWORD",
     "teamspeak_bot_username": "AstraWrld",
 
     "channel_id": "2"
