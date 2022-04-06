@@ -60,5 +60,5 @@ on("onResourceStart", async (resourceName) => {
   });
 
 // Script By Astra#2100
-console.log("Script By: Astra#2100")
+console.log(" Script By: Astra#2100 ")
 
