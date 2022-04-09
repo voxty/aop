@@ -3,13 +3,9 @@ This is my offical AOP to TeamSpeak3 resource. This resource takes the current a
 
 ---
 
-### How to install:
+## How to install:
 
-- Drag `aop-ts3` into your resource folder
-- Open command promt and install the node modules using `npm i`
-- Edit the `server.js` file to put your ts3 information
-- start `aop-ts3`
-
+Moved to [Wiki](https://github.com/AstraWrld/aop-ts3/wiki/AOP-TS3-Documentation)
 ---
 
 ### How to get support:
