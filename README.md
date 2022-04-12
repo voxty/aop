@@ -4,7 +4,7 @@ This is my offical AOP to TeamSpeak3 resource. This resource takes the current a
 ---
 
 ## How to install:
-Moved to [Wiki](https://github.com/AstraWrld/aop-ts3/wiki/AOP-TS3-Documentation)
+Moved to [Documentation Site](https://docs.astrawrld.com/c/fivem/aopts)
 
 ---
 
