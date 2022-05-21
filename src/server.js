@@ -6,7 +6,9 @@ const config = {
     "query_password": "QUERY_PASSWORD",
     "teamspeak_bot_username": "AstraWrld",
 
-    "channel_id": "2"
+    "channel_id": "2",
+    "use_time": false,
+    "timezone": "America/New_York"
 }
 
 
@@ -14,7 +16,13 @@ const config = {
 
 const { TeamSpeak, QueryProtocol } = require("ts3-nodejs-library");
 let aop = "None Set"
-let Wait = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+var today = new Date();
+var time = today.toLocaleString('en-US', {
+    hour12: false,
+    timeZone: config.timezone,
+    hour: '2-digit',
+    minute: '2-digit'
+})
 
 RegisterCommand("aop", async (source, args) => {
     let newaop = args.join(" ");
@@ -37,12 +45,21 @@ on("astra:ts", async (player) => {
     if(!channel) {
         console.log("That channel id is invalid, please make sure you are using the correct id")
     }
+    if (config.use_time){
     await channel.edit({
         channelDescription: `[center][size=15]AOP: ${aop}[/size][/center]\n[center][size=15]Set By: ${player}[/size][/center]`, // This will change the description
-        channelName: `[cspacer]AOP: ${aop}` // This will change the space title
+        channelName: `[cspacer]AOP: ${aop} [${time} EST]` // This will change the space title
     }).catch((e) => {
         console.log(e)
-    })
+      })
+    } else {
+        await channel.edit({
+            channelDescription: `[center][size=15]AOP: ${aop}[/size][/center]\n[center][size=15]Set By: ${player}[/size][/center]`, // This will change the description
+            channelName: `[cspacer]AOP: ${aop}` // This will change the space title
+        }).catch((e) => {
+            console.log(e)
+          })
+    }
 });
 
 on("onResourceStart", async (resourceName) => {
