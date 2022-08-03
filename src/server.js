@@ -76,6 +76,12 @@ on("onResourceStart", async (resourceName) => {
      }
   });
 
+process.on("unhandledRejection", (err) => {
+ if (err === "TypeError: Cannot read properties of undefined (reading 'edit')") {
+        return console.log("That channel id is invalid, please make sure you are using the correct id\n", err.stack);
+    }
+});
+
 // Script By Astra#2100
 console.log(" Script By: Astra#2100 ")
 
