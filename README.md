@@ -15,7 +15,7 @@ Moved to [Documentation Site](https://docs.astrawrld.com/c/fivem/aopts)
 
 ### Credits:
 
-- Programming: Astra#2100
+- Programming: Scentral#9999
 - Consultation: racc#0001
 - Inspiration: [WorldwideRP](https://wwrp.io)
 
