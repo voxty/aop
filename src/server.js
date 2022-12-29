@@ -87,18 +87,22 @@ const updatePlayerCount = async() => {
 
 on("onResourceStart", async (resourceName) => {
 	if (resourceName === GetCurrentResourceName()) {
-		tsClient = await TeamSpeak.connect({
-			host: config.teamspeak_ip,
-			protocol: QueryProtocol.RAW,
-			queryport: 10011, //optional
-			serverport: 9987,
-			username: "serveradmin", // Query Username .. "Usally serveradmin"
-			password: config.query_password,
-			nickname: config.teamspeak_bot_username,
-		});
+		try {
+			tsClient = await TeamSpeak.connect({
+				host: config.teamspeak_ip,
+				protocol: QueryProtocol.RAW,
+				queryport: 10011, //optional
+				serverport: 9987,
+				username: "serveradmin", // Query Username .. "Usally serveradmin"
+				password: config.query_password,
+				nickname: config.teamspeak_bot_username,
+			});
+			if(config.updatePlayerCount)
+			setInterval(updatePlayerCount, config.updatePlayerCountInterval * 1000);
+		} catch(err) {
+			console.error(`Error connecting to teamspeak: ${err}`)
+		}
 	}
-    if(config.updatePlayerCount)
-    setInterval(updatePlayerCount, config.updatePlayerCountInterval * 1000);
 });
 
 process.on("unhandledRejection", (err) => {
