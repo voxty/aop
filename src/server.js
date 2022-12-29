@@ -7,9 +7,9 @@ const config = {
 	teamspeak_bot_username: "serveradmin",
 
 	aop_channel_id: "1",
-    updatePlayerCount: true,
-    updatePlayerCountInterval: 120, // In Seconds
-    player_count_channel_id: "2",
+	updatePlayerCount: true,
+	updatePlayerCountInterval: 120, // In Seconds
+	player_count_channel_id: "2",
 	use_time: false,
 	timezone: "America/New_York",
 };
@@ -72,18 +72,22 @@ on("astra:ts", async (player) => {
 	}
 });
 
-const updatePlayerCount = async() => {
-    const channel = await tsClient.getChannelById(config.player_count_channel_id);
-    if (!channel) {
-        console.log("That channel id is invalid, please make sure you are using the correct id");
-    }
-    const playerCount = GetNumPlayerIndices();
-    await channel.edit({
-        channelName: `[cspacer]Players Online: ${playerCount}`
-    }).catch((e) => {
-        console.error(e);
-    });
-}
+const updatePlayerCount = async () => {
+	const channel = await tsClient.getChannelById(config.player_count_channel_id);
+	if (!channel) {
+		console.log(
+			"That channel id is invalid, please make sure you are using the correct id"
+		);
+	}
+	const playerCount = GetNumPlayerIndices();
+	await channel
+		.edit({
+			channelName: `[cspacer]Players Online: ${playerCount}`,
+		})
+		.catch((e) => {
+			console.error(e);
+		});
+};
 
 on("onResourceStart", async (resourceName) => {
 	if (resourceName === GetCurrentResourceName()) {
@@ -98,10 +102,10 @@ on("onResourceStart", async (resourceName) => {
 				nickname: config.teamspeak_bot_username,
 			});
 			console.log("Successfully connected to the Teamspeak server.");
-			if(config.updatePlayerCount)
-			setInterval(updatePlayerCount, config.updatePlayerCountInterval * 1000);
-		} catch(err) {
-			console.error(`Error connecting to teamspeak: ${err}`)
+			if (config.updatePlayerCount)
+				setInterval(updatePlayerCount, config.updatePlayerCountInterval * 1000);
+		} catch (err) {
+			console.error(`Error connecting to teamspeak: ${err}`);
 		}
 	}
 });
