@@ -1,4 +1,4 @@
-// Script By Astra#2100
+// Script By Scentral#2100
 let tsClient;
 
 const config = {
@@ -91,6 +91,7 @@ const updatePlayerCount = async () => {
 
 on("onResourceStart", async (resourceName) => {
 	if (resourceName === GetCurrentResourceName()) {
+        if (config.teamspeak_bot_username.length > 20 ) return console.log("The bot username is too long, please make it less than 20 characters")
 		try {
 			tsClient = await TeamSpeak.connect({
 				host: config.teamspeak_ip,
@@ -121,5 +122,5 @@ process.on("unhandledRejection", (err) => {
 	}
 });
 
-// Script By Astra#2100
-console.log(" Script By: Astra#2100 ");
+// Script By Scentral#2100
+console.log(" Script By: Scentral#2100 ");
