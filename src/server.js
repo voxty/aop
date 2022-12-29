@@ -2,9 +2,9 @@
 let tsClient;
 
 const config = {
-	teamspeak_ip: "51.79.87.64",
-	query_password: "KCflgx51",
-	teamspeak_bot_username: "povitsracc",
+	teamspeak_ip: "localhost",
+	query_password: "omgpassword",
+	teamspeak_bot_username: "serveradmin",
 
 	aop_channel_id: "1",
     updatePlayerCount: true,
@@ -97,6 +97,7 @@ on("onResourceStart", async (resourceName) => {
 				password: config.query_password,
 				nickname: config.teamspeak_bot_username,
 			});
+			console.log("Successfully connected to the Teamspeak server.");
 			if(config.updatePlayerCount)
 			setInterval(updatePlayerCount, config.updatePlayerCountInterval * 1000);
 		} catch(err) {
