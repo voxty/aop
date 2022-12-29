@@ -2,11 +2,14 @@
 let tsClient;
 
 const config = {
-	teamspeak_ip: "localhost",
-	query_password: "QUERY_PASSWORD",
-	teamspeak_bot_username: "AstraWrld",
+	teamspeak_ip: "51.79.87.64",
+	query_password: "KCflgx51",
+	teamspeak_bot_username: "povitsracc",
 
-	channel_id: "2",
+	aop_channel_id: "1",
+    updatePlayerCount: true,
+    updatePlayerCountInterval: 120, // In Seconds
+    player_count_channel_id: "2",
 	use_time: false,
 	timezone: "America/New_York",
 };
@@ -42,7 +45,7 @@ RegisterCommand("aop", async (source, args) => {
 });
 
 on("astra:ts", async (player) => {
-	const channel = await tsClient.getChannelById(config.channel_id);
+	const channel = await tsClient.getChannelById(config.aop_channel_id);
 	if (!channel) {
 		console.log(
 			"That channel id is invalid, please make sure you are using the correct id"
@@ -69,6 +72,19 @@ on("astra:ts", async (player) => {
 	}
 });
 
+const updatePlayerCount = async() => {
+    const channel = await tsClient.getChannelById(config.player_count_channel_id);
+    if (!channel) {
+        console.log("That channel id is invalid, please make sure you are using the correct id");
+    }
+    const playerCount = GetNumPlayerIndices();
+    await channel.edit({
+        channelName: `[cspacer]Players Online: ${playerCount}`
+    }).catch((e) => {
+        console.error(e);
+    });
+}
+
 on("onResourceStart", async (resourceName) => {
 	if (resourceName === GetCurrentResourceName()) {
 		tsClient = await TeamSpeak.connect({
@@ -81,6 +97,8 @@ on("onResourceStart", async (resourceName) => {
 			nickname: config.teamspeak_bot_username,
 		});
 	}
+    if(config.updatePlayerCount)
+    setInterval(updatePlayerCount, config.updatePlayerCountInterval * 1000);
 });
 
 process.on("unhandledRejection", (err) => {
